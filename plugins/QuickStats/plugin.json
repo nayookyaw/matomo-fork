@@ -1,0 +1,8 @@
+{
+  "name": "QuickStats",
+  "version": "1.0",
+  "description": "Adds a Vue Quick Stats button to the footer via Template.pageFooter.",
+  "theme": false,
+  "keywords": ["footer","vue","quickstats"],
+  "license": "MIT"
+}
