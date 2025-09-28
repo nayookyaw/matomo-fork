@@ -29,44 +29,58 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, defineComponent } from 'vue';
+  import { onMounted, ref, defineComponent } from 'vue'
+  import axios from 'axios'
 
-const open = ref(false);
-const loading = ref(false);
-const error = ref<string | null>(null);
-const counters = ref<any | null>(null);
+  const open = ref(false)
+  const loading = ref(false)
+  const error = ref<string | null>(null)
+  const counters = ref<any | null>(null)
 
-async function fetchCounters() {
-  loading.value = true;
-  error.value = null;
-  try {
-    // Adjust idSite as needed (1 is typical in dev)
-    const url = 'index.php?module=API&method=Live.getCounters&idSite=1&lastMinutes=120&format=json';
-    const res = await fetch(url, { credentials: 'same-origin' });
-    const data = await res.json();
-    counters.value = Array.isArray(data) ? data[0] : data;
-  } catch (e) {
-    error.value = 'Failed to load stats.';
-  } finally {
-    loading.value = false;
+  async function fetchCounters() {
+    loading.value = true
+    error.value = null
+    try {
+      const res = await axios.get('index.php', {
+        withCredentials: true,
+        timeout: 10000,
+        params: {
+          module: 'API',
+          method: 'Live.getCounters',
+          idSite: 1, // adjust if needed
+          lastMinutes: 120,
+          format: 'json'
+        }
+      })
+      // If Matomo returns { result: 'error' } with HTTP 200
+      const payload = res.data
+      const first = Array.isArray(payload) ? payload[0] : payload
+      if (first && typeof first === 'object' && first.result === 'error') {
+        throw new Error(first.message || 'Matomo API error')
+      }
+      counters.value = first
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : String(e)
+      error.value = msg || 'Failed to load stats.'
+    } finally {
+      loading.value = false
+    }
   }
-}
 
-onMounted(() => {
-  // Preload on mount so the modal is instant
-  fetchCounters();
-});
+  onMounted(() => {
+    fetchCounters()
+  })
 
-const Metric = defineComponent({
-  name: 'Metric',
-  props: { label: String, value: [String, Number] },
-  template: `
-    <div class="qs-metric">
-      <div class="qs-label">{{ label }}</div>
-      <div class="qs-value">{{ value }}</div>
-    </div>
-  `,
-});
+  const Metric = defineComponent({
+    name: 'Metric',
+    props: { label: String, value: [String, Number] },
+    template: `
+      <div class="qs-metric">
+        <div class="qs-label">{{ label }}</div>
+        <div class="qs-value">{{ value }}</div>
+      </div>
+    `,
+  })
 </script>
 
 <style scoped>
