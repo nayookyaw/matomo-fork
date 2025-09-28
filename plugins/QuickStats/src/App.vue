@@ -5,7 +5,7 @@
     <div v-if="open" class="qs-modal" @click.self="open=false" role="dialog" aria-modal="true">
       <div class="qs-card">
         <header class="qs-card-header">
-          <h3>Live Quick Stats (last 120 min)</h3>
+          <h3>Live Quick Stats (last 120 minutes)</h3>
           <button class="qs-close" @click="open=false" aria-label="Close">×</button>
         </header>
 
