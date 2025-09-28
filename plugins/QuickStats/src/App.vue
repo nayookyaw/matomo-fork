@@ -13,10 +13,11 @@
           <div v-if="loading">Loading…</div>
           <div v-else-if="error" class="qs-error">{{ error }}</div>
           <div v-else class="qs-grid">
-            <Metric label="Total visits"       :value="counters?.visits ?? 0" />
+            <div>{{ counters?.actions || 0 }}</div>
+            <!-- <Metric label="Total visits"       :value="counters?.visits ?? 0" />
             <Metric label="Total actions"      :value="counters?.actions ?? 0" />
             <Metric label="Visitors"           :value="counters?.visitors ?? 0" />
-            <Metric label="Visits converted"   :value="counters?.visitsConverted ?? 0" />
+            <Metric label="Visits converted"   :value="counters?.visitsConverted ?? 0" /> -->
           </div>
         </section>
 
@@ -58,18 +59,20 @@
           idSite: 1, // adjust if needed
           lastMinutes: 120,
           format: 'json',
-          ...(token ? { token_auth: token } : {})
+          // token_auth: "test",
         }
       })
       // If Matomo returns { result: 'error' } with HTTP 200
-      console.log(res);
+      
       const payload = res.data
-      const first = Array.isArray(payload) ? payload[0] : payload
-      if (first && typeof first === 'object' && first.result === 'error') {
-        throw new Error(first.message || 'Matomo API error')
-      }
-      counters.value = first
-    } catch (e: unknown) {
+      const firstRecord = payload?.length > 0 ? payload[0] : payload
+      // if (firstRecord && typeof firstRecord === 'object' && firstRecord.result === 'error') {
+      //   throw new Error(firstRecord.message || 'Matomo API error')
+      // }
+      counters.value = firstRecord
+      console.log(firstRecord);
+    } catch (e: any) {
+      console.log (e)
       const msg = e instanceof Error ? e.message : String(e)
       error.value = msg || 'Failed to load stats.'
     } finally {
