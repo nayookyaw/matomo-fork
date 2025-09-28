@@ -37,10 +37,18 @@
   const error = ref<string | null>(null)
   const counters = ref<any | null>(null)
 
+  function readToken(): string | undefined {
+    return document.getElementById('quick-stats-root')
+      ?.getAttribute('data-qs-token') || undefined;
+  }
+
   async function fetchCounters() {
     loading.value = true
     error.value = null
     try {
+      const token = readToken();
+      console.log('Using token:', token);
+
       const res = await axios.get('index.php', {
         withCredentials: true,
         timeout: 10000,
@@ -49,10 +57,12 @@
           method: 'Live.getCounters',
           idSite: 1, // adjust if needed
           lastMinutes: 120,
-          format: 'json'
+          format: 'json',
+          ...(token ? { token_auth: token } : {})
         }
       })
       // If Matomo returns { result: 'error' } with HTTP 200
+      console.log(res);
       const payload = res.data
       const first = Array.isArray(payload) ? payload[0] : payload
       if (first && typeof first === 'object' && first.result === 'error') {

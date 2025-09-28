@@ -2,6 +2,7 @@
 namespace Piwik\Plugins\QuickStats;
 
 use Piwik\Plugin;
+use Piwik\Piwik;
 
 class QuickStats extends Plugin
 {
@@ -21,7 +22,11 @@ class QuickStats extends Plugin
     public function renderFooterMount(&$out): void
     {
         if (strpos((string)$out, 'quick-stats-root') === false) {
-            $out .= '<div id="quick-stats-root" data-quick-stats></div>';
+            // $out .= '<div id="quick-stats-root" data-quick-stats></div>';
+
+            $token = Piwik::getCurrentUserTokenAuth();
+            $attr  = $token ? ' data-qs-token="'.htmlspecialchars($token, ENT_QUOTES).'"' : '';
+            $out  .= '<div id="quick-stats-root"'.$attr.'></div>';
         }
     }
 
