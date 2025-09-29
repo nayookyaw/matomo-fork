@@ -81,4 +81,15 @@
 .qs-error{
     color:#b00020
 }
+.qs-charts {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+@media (min-width: 900px) {
+  .qs-charts {
+    grid-template-columns: 1fr 1fr;
+  }
+}
 </style>
