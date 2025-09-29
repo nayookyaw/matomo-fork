@@ -1,5 +1,6 @@
 import { createApp } from "vue";
 import App from "./App.vue";
+import QuickStatsMain from "./QuickStatsMain.vue";
 
 function mount() {
     console.log('QuickStats mounted!');
@@ -7,7 +8,8 @@ function mount() {
     if (!elementQuickStats) return;
 
     if (elementQuickStats) {
-        const app = createApp(App);
+        // const app = createApp(App);
+        const app = createApp(QuickStatsMain);
         app.mount(elementQuickStats);
     }
 }
