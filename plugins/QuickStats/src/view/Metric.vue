@@ -1,9 +1,9 @@
 <!-- Metric.vue -->
 <script setup lang="ts">
-defineProps<{
-  label: string
-  value: string | number
-}>()
+    defineProps<{
+    label: string
+    value: string | number
+    }>()
 </script>
 
 <template>

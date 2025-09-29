@@ -3,8 +3,8 @@
     import axios from 'axios'
     import {CountersType} from '../type'
 
-    const open = ref<boolean>(false)
-    const loading = ref<boolean>(false)
+    const isOpen = ref<boolean>(false)
+    const isLoading = ref<boolean>(false)
     const error = ref<string | null>(null)
     const counters = ref<CountersType>(null)
 
@@ -15,7 +15,7 @@
 
     // API call to backend
     async function fetchCounters() {
-        loading.value = true
+        isLoading.value = true
         error.value = null
         try {
             const token : string = readToken()
@@ -44,22 +44,22 @@
             const msg = e?.message ?? String(e)
             error.value = msg || 'Failed to load stats.'
         } finally {
-            loading.value = false
+            isLoading.value = false
         }
     }
 
-    const setOpen = (v: boolean) => { open.value = v }
+    const setOpen = (v: boolean) => { isOpen.value = v }
 
     onMounted(fetchCounters)
 
-    defineExpose({ open, loading, error, counters, fetchCounters })
+    defineExpose({ isOpen, isLoading, error, counters, fetchCounters })
 </script>
 
 <template>
   <!-- Renderless: exposes state/handlers via scoped slot -->
   <slot
-    :open="open"
-    :loading="loading"
+    :isOpen="isOpen"
+    :isLoading="isLoading"
     :error="error"
     :counters="counters"
     :fetch-counters="fetchCounters"
