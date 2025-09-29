@@ -1,22 +1,16 @@
 <script setup lang="ts">
     import { onMounted, ref } from 'vue'
     import axios from 'axios'
+    import {CountersType} from '../type'
 
-    type Counters = {
-        actions?: string | number
-        visits?: string | number
-        visitors?: string | number
-        visitsConverted?: string | number
-    } | null
-
-    const open = ref(false)
-    const loading = ref(false)
+    const open = ref<boolean>(false)
+    const loading = ref<boolean>(false)
     const error = ref<string | null>(null)
-    const counters = ref<Counters>(null)
+    const counters = ref<CountersType>(null)
 
-    function readToken(): string | undefined {
+    function readToken(): string {
         return document.getElementById('quick-stats-root')
-            ?.getAttribute('data-qs-token') || undefined
+            ?.getAttribute('data-qs-token') || ""
     }
 
     // API call to backend
@@ -24,7 +18,7 @@
         loading.value = true
         error.value = null
         try {
-            const token = readToken()
+            const token : string = readToken()
             // console.log('Using token:', token)
 
             const res = await axios.get('index.php', {
@@ -39,15 +33,12 @@
                     // token_auth: token,
                 }
             })
-            const responseData : Counters = res.data;
-            console.log (res)
+            const responseData : CountersType [] = res.data;
 
-            const payload = res.data
-            const firstRecord = Array.isArray(payload) ? payload[0] : payload
-            // If Matomo uses {result:'error'} with 200 OK:
-            if (firstRecord && typeof firstRecord === 'object' && firstRecord.result === 'error') {
-            throw new Error(firstRecord.message || 'Matomo API error')
+            if (!Array.isArray(responseData) || responseData.length === 0) {
+                throw new Error('Invalid API response')
             }
+            const firstRecord : CountersType = responseData[0];            
             counters.value = firstRecord
         } catch (e: any) {
             const msg = e?.message ?? String(e)

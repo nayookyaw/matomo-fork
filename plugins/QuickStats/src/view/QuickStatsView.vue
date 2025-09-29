@@ -1,11 +1,12 @@
 <script setup lang="ts">
     import Metric from './Metric.vue'
+    import { CountersType } from '../type'
 
     const props = defineProps<{
         open: boolean
         loading: boolean
         error: string | null
-        counters: any
+        counters: CountersType | null
     }>()
 
     const emit = defineEmits<{
@@ -30,14 +31,10 @@
           <div v-if="loading">Loading…</div>
           <div v-else-if="error" class="qs-error">{{ error }}</div>
           <div v-else class="qs-grid">
-            <!-- <span>Actions {{ counters?.actions ?? 0 }}</span> -->
-            <Metric label="Total actions" :value="counters?.actions ?? 0" />
-            <!-- Show whatever metrics you want; example uses actions only -->
-            <!-- <Metric label="Total actions" :value="counters?.actions ?? 0" /> -->
-            <!-- Uncomment more if available in your payload -->
-            <!-- <Metric label="Total visits"     :value="counters?.visits ?? 0" /> -->
-            <!-- <Metric label="Visitors"        :value="counters?.visitors ?? 0" /> -->
-            <!-- <Metric label="Visits converted":value="counters?.visitsConverted ?? 0" /> -->
+            <Metric label="Total actions"   :value="counters?.actions ?? 0" />
+            <Metric label="Total visits"    :value="counters?.visits ?? 0" />
+            <Metric label="Visitors"        :value="counters?.visitors ?? 0" />
+            <Metric label="Visits converted":value="counters?.visitsConverted ?? 0" />
           </div>
         </section>
 
