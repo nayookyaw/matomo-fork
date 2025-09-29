@@ -5,11 +5,16 @@
 
 <style>
 .qs-btn{
+    position: fixed;
+    bottom: 20px;   /* distance from bottom */
+    right: 20px;    /* distance from right */
     padding:.5rem .75rem;
     border-radius:.5rem;
     border:0;
     background:#1f6feb;
     color:#fff;
+    padding: 10px 16px;
+    border-radius: 8px;
     cursor:pointer;
     box-shadow:0 2px 8px rgba(0,0,0,.15)
 }
@@ -37,7 +42,7 @@
     padding:.75rem 1rem;
     border-bottom:1px solid #eee
 }
-.qs-close{
+.qs-close-icon{
     background:transparent;
     border:0;
     font-size:1.5rem;
@@ -57,6 +62,16 @@
     border:1px solid #f0f0f0;
     border-radius:.5rem
 }
+.qs-metric-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1em;
+    height: 1em;
+    margin-right: 8px;
+    vertical-align: middle;
+    color: #666;
+}
 .qs-label{
     font-size:.8rem;
     color:#666
@@ -71,12 +86,21 @@
     display:flex;
     justify-content:flex-end
 }
-.qs-refresh{
+.qs-refresh-btn{
     background:#efefef;
     border:0;
     border-radius:.5rem;
     padding:.5rem .75rem;
     cursor:pointer
+}
+.qs-close-btn{
+    background: #666;
+    color: #f5f2f2;
+    border: 0;
+    border-radius: .5rem;
+    padding: .5em .75rem;
+    cursor: pointer;
+    margin-right: 8px;
 }
 .qs-error{
     color:#b00020
@@ -89,7 +113,7 @@
 }
 @media (min-width: 900px) {
   .qs-charts {
-    grid-template-columns: 1fr 1fr;
+    /* grid-template-columns: 1fr 1fr; */
   }
 }
 </style>

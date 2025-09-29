@@ -6,6 +6,8 @@
     "dev": "vite"
   },
   "dependencies": {
+    "@coreui/icons": "^3.0.1",
+    "@coreui/icons-vue": "^2.2.0",
     "axios": "^1.12.2",
     "chart.js": "^4.5.0",
     "vue": "^3.4.0"
