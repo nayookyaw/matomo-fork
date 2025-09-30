@@ -6,6 +6,11 @@ export default defineConfig({
   plugins: [vue()],
   // we're already in plugins/QuickStats, so keep root local
   root: __dirname,
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, 'src')
+    }
+  },
   build: {
     outDir: 'dist',           // => plugins/QuickStats/dist
     emptyOutDir: true,
@@ -18,4 +23,16 @@ export default defineConfig({
       },
     },
   },
+  // ✅ Vitest
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['./tests/setup.ts'],
+    css: true,
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'html'],
+      reportsDirectory: './coverage'
+    }
+  }
 });
