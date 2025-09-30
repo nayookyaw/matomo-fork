@@ -8,10 +8,10 @@ I developed a Quick Stats feature with a floating button that provides users wit
     - When the user clicks it, a modal window opens showing live statistics.
 
 * Displayed statistics
-1. Total actions
-2. Total visits
-3. Visitors
-4. Visits converted
+    1. Total actions
+    2. Total visits
+    3. Visitors
+    4. Visits converted
 
 * Refresh capability
     - A Refresh button is available inside the modal.
@@ -26,6 +26,13 @@ I developed a Quick Stats feature with a floating button that provides users wit
 1. TypeScript 
 2. Vue JS v3
 
+# Feature UI Demo
+![alt text](./plugins/QuickStats/result-img/quickstats-modal.png)
+
+# Feature Demo Video Link
+https://drive.google.com/file/d/18_qjVa6FfYjIt_Qd33mayplgVlICrW38/view?usp=sharing
+
+
 # What I want to improve
 1. I want to add more coverage testing.
 2. Currently, I have done only unit testing for Metric.vue file.
@@ -34,7 +41,8 @@ I developed a Quick Stats feature with a floating button that provides users wit
 5. Currently, I enabled the anonymous view option, which I did not want to enable.
 
 # UI Testing (unit testing)
-
+![alt text](./plugins/QuickStats/result-img/unit-testing-1.png)
+![alt text](./plugins/QuickStats/result-img/coverage-testing.png)
 
 # How to install dependencies
 * Nagivate into feature root path (QuickStats)
