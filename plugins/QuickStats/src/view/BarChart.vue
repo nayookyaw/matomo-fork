@@ -56,8 +56,10 @@
 
     function updateChart() {
         if (!chart) return
-        chart.data.datasets[0].data = valuesFrom(props.counters)
-        chart.update()
+        if (chart?.data?.datasets?.length > 0) {
+            chart.data.datasets[0].data = valuesFrom(props.counters)
+            chart.update()
+        }
     }
 
     onMounted(buildChart)
