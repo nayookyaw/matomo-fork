@@ -28,11 +28,11 @@
             labels,
             datasets: [
                 {
-                label: props.title ?? 'Quick Stats',
-                data,
-                borderWidth: 1,
-                backgroundColor: ['#60a5fa', '#34d399', '#fbbf24', '#f472b6'],
-                borderColor: ['#2563eb', '#059669', '#d97706', '#be185d'],
+                    label: props.title ?? 'Quick Stats',
+                    data,
+                    borderWidth: 1,
+                    backgroundColor: ['#60a5fa', '#34d399', '#fbbf24', '#f472b6'],
+                    borderColor: ['#2563eb', '#059669', '#d97706', '#be185d'],
                 },
             ],
             },
